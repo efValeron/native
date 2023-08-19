@@ -1,91 +1,37 @@
-// sort
-
-const names = ["Bob", "Alex", "Donald"]
-// console.log(names.sort())
-// сортирует строки по "алфавиту" "из коробки", т.е без доп. параметров
-
-
-const names2 = ["Bob", "alex", "bob", "Alex", "Donald", "Юрий", "игорь", "1000"]
-// console.log(names2.sort())
-// Сначала числа, лат алфавит заглавные, лат алфавит строчные, друг алфавит заглавные, друг алфавит строчные...
-// сортирует строки по unicode "из коробки", т.е без доп. параметров
-
-// сртрисует мутабельно
-// возвращает себя же, массив (ссылку)
-
-const numbers = [100, 9, 22, 777]
-// console.log(numbers.sort((a, b) => a - b))
-// для остальных случаев необходимо передать функцию сравнения в качестве параметра
-// (a, b) => a - b
-// Если разница отрицательна, числа остаються, если разница положительна - числа меняются местами
-
-// вместе с sort часто используют reverse()
-// Итог: со строками работает без доп. параметров, со числами - с доп. параметром
-
-
-const students = [
-  {
-    name: "Bob",
-    age: 22,
-    isMarried: true,
-    scores: 95
+const student = {
+  name: "Bob",
+  age: 22,
+  isMarried: true,
+  address: {
+    city: "New York",
+    country: "USA"
   },
-  {
-    name: "Alex",
-    age: 22,
-    isMarried: true,
-    scores: 89
-  },
-  {
-    name: "Helge",
-    age: 24,
-    isMarried: true,
-    scores: 90
-  },
-  {
-    name: "Nick",
-    age: 20,
-    isMarried: false,
-    scores: 120
-  },
-  {
-    name: "John",
-    age: 19,
-    isMarried: false,
-    scores: 121
-  },
-  {
-    name: "alex",
-    age: 22,
-    isMarried: true,
-    scores: 89
-  },
-]
-
-// console.log(students.sort((a, b) => a.age - b.age))
-// сортирует массив объектов по возрасту
-
-// console.log(students.sort((a, b) => a.name.localeCompare(b.name)))
-// сортирует массив объектов по имени в алфавитном порядке
-
-
-// bubble sort
-
-const shufledNums = [5, 4, 3, 2, 1]
-
-const bubbleSort = (arr) => {
-  let swapped
-  for (let j = 0; j < arr.length - 1; j++) {
-    swapped = false
-    for (let i = 0; i < arr.length - 1 - j; i++) {
-      if (arr[i] > arr[i + 1]) {
-        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]]
-        swapped = true
-      }
+  parents: {
+    mother: {
+      name: "Ann",
+      age: 45
+    },
+    father: {
+      name: "John",
+      age: 50
     }
-    if (!swapped) break
   }
 }
 
-bubbleSort(shufledNums)
-console.log(shufledNums)
+const student2 = structuredClone(student)
+// const student2 = {...student}
+student2.parents.mother.name = "Jane"
+student2.name = "Kris"
+student2.address.city = "London"
+
+// console.log(student)
+// console.log(student2)
+
+const matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+const matrix2 = structuredClone(matrix)
+// const matrix2 = [...matrix]
+matrix2[0][1] = 100
+
+console.log(matrix)
+console.log(matrix2)
