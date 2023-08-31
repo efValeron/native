@@ -17,8 +17,8 @@ const truncateString = (str, maxLength) => str.split("").slice(0, maxLength).joi
 // console.log(truncateString("lorem ipsum dolor sit amet", 8))
 
 // 4
-const getMinLengthWord = (str) => typeof str !== "string" ? null : str.split(" ").sort((a, b) => a.length - b.length)[0]
-console.log(getMinLengthWord(null))
+const getMinLengthWord = (str) => !str || typeof str !== "string" ? null : str.split(" ").sort((a, b) => a.length - b.length)[0]
+console.log(getMinLengthWord(NaN))
 
 // 5
 const setUpperCase = (str) => str.toLowerCase().split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
