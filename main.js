@@ -1,295 +1,300 @@
-// ========================== Синхронный код ===================================
+// ============================ try/catch ======================================
 
-// console.log('Start')
-//
-// function fetchTodos() {
-//   const start = Date.now()
-//   while (Date.now() - start < 2000) {}
-//   console.log('Todos was received from the server!')
-// }
-//
-// fetchTodos()
-//
-// console.log('End')
+// ============================ async/await ====================================
 
-// ========================== Асинхронный код ==================================
+// переписать на async/await
+let isLoading = false
+const getTodosPr = () => {
+  isLoading = true
+  fetch('https://jsonplaceholder.typicode.com/todos')
+    .then((response) => response.json())
+    .then((result) => {
+      console.log('result', result)
+    })
+    .catch((error) => {
+      console.log('error', error)
+    })
+    .finally(() => {
+      isLoading = false
+    })
+}
 
-// console.log('Start')
-//
-// function fetchTodos() {
-//     setTimeout(function () {
-//         console.log('Todos was received from the server!')
-//     }, 2000)
-// }
-// fetchTodos()
-//
-// console.log('End')
+//============================== call stack ================================
 
-// ========================== Callback hell ====================================
+const multiply = (x, y) => x * y
 
-// ============================ Promises =======================================
-// объект
+const res1 = multiply(2, 3)
+const res2 = multiply(4, 5)
+const res3 = multiply(6, 7)
 
-// const promise = new Promise((resolve, reject) => {
-//   resolve("Success")
-//   reject("Error")
-// })
-// console.log(promise)
+const greet = (name) => {
+  console.log(`Hello, ${name}!`)
+}
+
+const sayHello = () => {
+  const myName = 'Alice'
+  greet(myName)
+  console.log('How are you?')
+}
 
 // Что выведется в консоль?
+// sayHello()
+
+// ============================ event loop =====================================
+const logMessage = (value) => {
+  console.log(value)
+}
+
+// logMessage('Start!')
+
+// Promise.resolve('I\'m Promise!').then((res) => logMessage(res))
+
+// logMessage('End!')
+
+// ============================= task queue ====================================
+
+// Что выведется в консоль?
+// =============================================================================
 // console.log(1)
-// const pr = new Promise((resolve, reject) => {
-//   console.log(2)
-//   resolve()
+
+// const promise1 = new Promise((resolve, reject) => {
+//     console.log(2)
 // })
+
 // console.log(3)
 
-// 1 2 3
+// =============================================================================
+// const log = (value) => {
+//     console.log(value)
+// }
 
-// Что выведется в консоль?
+// const one = () => Promise.resolve(1)
+
+// const myFunc = async () => {
+//     log(2)
+//     const res = await one()
+//     log(res)
+// }
+
+// log(3)
+// myFunc()
+// log(4)
+
+// =============================================================================
+// console.log(1)
+
 // const promise2 = new Promise((resolve, reject) => {
-//     resolve(1)
-//     setTimeout(() => resolve(2), 1000)
+//     console.log(2)
+//     resolve(3)
 // })
-// promise2.then(console.log)
 
-// 1
-
-// Методы промиса
-// then, catch, finally
-
-// const fetchUserData = new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//         const success = false
-//         if (success) {
-//             resolve('Data uploaded successfully')
-//         } else {
-//             reject('Error loading data')
-//         }
-//     }, 1000)
+// promise2.then(res => {
+//     console.log(res)
 // })
-//
-// fetchUserData.then(console.log).catch(console.log)
 
-// Что выведется в консоль?
-// console.log('start')
+// console.log(4)
+
+// =============================================================================
+// console.log(1)
+
+// const promise1 = new Promise((resolve, reject) => {
+//     console.log(2)
+// })
+
+// promise1.then(res => {
+//     console.log(3)
+// })
+
+// console.log(4)
+
+// =============================================================================
+// console.log(1)
+
 // const promise3 = new Promise((resolve, reject) => {
-//     console.log(1)
-//     resolve(2)
+//     console.log(2)
+//     resolve(3)
+//     console.log(4)
 // })
+
 // promise3.then(res => {
 //     console.log(res)
 // })
-// console.log('end')
 
-// start 1 end 2
+// console.log(5)
 
-// Что выведется в консоль?
-// console.log('start')
-// const promise4 = new Promise((resolve, reject) => {
-//     console.log(1)
-//     resolve(2)
-//     console.log(3)
-// })
-// promise4.then(res =>
-//     console.log(res)
-// )
-// console.log('end')
+// =============================================================================
+// console.log(1)
 
-// start 1 3 end 2
-
-// Что выведется в консоль?
-// console.log('start')
-// const promise5 = new Promise((resolve, reject) => {
-//     console.log(1)
-// })
-// promise5.then(res => {
-//     console.log(2)
-// })
-// console.log('end')
-
-// start 1 end
-
-// Что выведется в консоль?
-// console.log('start')
-// const fn = () => (new Promise((resolve, reject) => {
-//     console.log(1)
-//     reject('error')
-// }))
-// console.log('middle')
-// fn().catch(err => {
-//     console.log(err)
-// })
-// console.log('end')
-
-// start middle 1 end error
-
-// ========================== Promise chaining =================================
-
-// const fetchUserData = new Promise((resolve, reject) => {
-//   setTimeout(() => {
-//     const success = true
-//     if (success) {
-//       resolve('Data uploaded successfully')
-//     } else {
-//       reject('Error loading data')
-//     }
-//   }, 1000)
-// })
-//
-// fetchUserData
-//   .then(console.log) // resolve
-//   .then(console.log) // undefined
-
-// Что выведется в консоль?
-// const p = new Promise((resolve, reject) => {
-//     reject(Error('fail!'))
-// })
-//     .catch(error => console.log(error.message))
-//     .catch(error => console.log(error.message))
-
-// fail!
-
-// Что выведется в консоль?
-// const prom = new Promise((resolve, reject) => {
-//     setTimeout(() => {
-//         console.log('Step 1')
-//         reject('error')
-//     }, 1000)
-// })
-// prom
-//     .then(
-//         (result) => {
-//             console.log('Step 2:', result)
-//             return 'Additional info'
-//         },
-//         (error) => {
-//             console.log('Step 3:', error)
-//             return 'Restored'
-//         }
-//     )
-//     .then((info) => {
-//         console.log('Step 4:', info)
-//     })
-//
-// console.log('Step 5')
-
-// Step 5 / Step 1 / Step 3: error / Step 4: Restored
-
-// Что выведется в консоль?
-// const promise6 = new Promise((resolve, reject) => {
-//     console.log('Step 1')
-//     resolve('Success!')
-// })
-// promise6
-//     .then((result) => {
-//         console.log('Step 2:', result)
-//         throw new Error('Error')
-//     })
-//     .catch((error) => {
-//         console.log('Step 3:', error.message)
-//         return 'Restored'
-//     })
-//     .then((info) => {
-//         console.log('Step 4:', info)
-//     })
-// console.log('Step 5')
-
-// Step 1 / Step 5 / Step 2: Success! / Step 3: Error / Step 4; Restored
-
-// ============================= Promise API ===================================
-
-// const resolvedPromise = Promise.resolve("Success")
-// resolvedPromise.then((result) => {
-//   console.log(result)
-// })
-
-// const rejectedPromise = Promise.resolve("Error!")
-// rejectedPromise.catch((error) => {
-//   console.error(error)
-// })
-
-// const all1 = Promise.resolve(1)
-// const all2 = Promise.resolve(2)
-// const all3 = Promise.resolve(3)
-//
-// Promise
-//   .all([all1, all2, all3])
-//   .then(res => {
-//     console.log(res)
-//   })
-
-// const allSettled1 = Promise.resolve(1)
-// const allSettled2 = Promise.reject(2)
-// const allSettled3 = Promise.resolve(3)
-//
-// Promise
-//   .allSettled([allSettled1, allSettled2, allSettled3])
-//   .then(res => {
-//     console.log(res.filter(res => res.status === 'fulfilled'))
-//   })
-
-// const race1 = new Promise((res, rej) => setTimeout(res, 1000, 'race 1'))
-// const race2 = new Promise((res, rej) => setTimeout(res, 500, 'race 2'))
-//
-// Promise.race([race1, race2]).then((res) => {
-//   console.log(res)
-// })
-
-// Что выведется в консоль?
-// Promise.reject("error")
-//        .then(data => console.log('ok'))
-//        .catch(error => {
-//            console.log(error);
-//            return "1";
-//        })
-//        .then(data => {
-//            console.log(data);
-//        })
-
-// error 1
-
-// Что выведется в консоль?
-// Promise.resolve()
-//        .then(() => console.log(1))
-//        .then(() => console.log(2))
-//
-// Promise.resolve()
-//        .then(() => console.log(11))
-//        .then(() => console.log(12))
-
-// 1 11 2 12
-
-// Что выведется в консоль?
-// Promise
-//     .reject('reject1')
-//     .catch((t) => t + 'catch1')
-//     .catch((t) => t + 'catch2')
-//     .then((t) => t + 'then1')
-//     .finally((t) => t + 'finally')
-//     .then((t) => console.log(t))
-
-// reject1catch1then1
-
-// Что выведется в консоль?
-// console.log('start')
-// Promise.resolve(1).then((res) => {
-//     console.log(res)
-// })
 // Promise.resolve(2).then((res) => {
 //     console.log(res)
 // })
-// console.log('end')
 
-// start end 1 2
+// Promise.resolve(3).then((res) => {
+//     console.log(res)
+// })
 
-// Выведите последовательно в консоль сначала start, а затем finish
-const namesPr = new Promise((res, rej) => {
-  res("start")
-})
-namesPr.then((res) => {
-  console.log(res)
-  return Promise.reject("finish")
-}).catch((err) => {
-  console.log(err)
-})
+// console.log(4)
+
+// =============================================================================
+// console.log(1)
+
+// const fn = () => (new Promise((resolve, reject) => {
+//     console.log(2)
+//     resolve(3)
+// }))
+
+// console.log(4)
+
+// fn().then(res => {
+//     console.log(res)
+// })
+
+// console.log(5)
+
+// =============================================================================
+
+// console.log(1)
+
+// setTimeout(() => {
+//     console.log(2)
+// })
+
+// Promise.resolve()
+//     .then(() => {
+//     console.log(3)
+// })
+
+// console.log(4)
+
+// =============================================================================
+
+// const promise4 = new Promise((resolve, reject) => {
+//     console.log(1)
+//     setTimeout(() => {
+//         console.log(2)
+//         resolve(3)
+//         console.log(4)
+//     }, 0)
+//     console.log(5)
+// })
+
+// promise4.then((res) => {
+//     console.log(res)
+// })
+
+// console.log(6)
+
+// =============================================================================
+// const timer1 = setTimeout(() => {
+//     console.log(1);
+
+//     const promise5 = Promise.resolve().then(() => {
+//         console.log(2)
+//     })
+// }, 0)
+
+// const timer2 = setTimeout(() => {
+//     console.log(3)
+// }, 0)
+
+// =============================================================================
+// console.log(1)
+
+// const promise6 = Promise.resolve().then(() => {
+//     console.log(2)
+//
+//     const timer2 = setTimeout(() => {
+//         console.log(3)
+//     }, 0)
+// })
+
+// const timer1 = setTimeout(() => {
+//     console.log(4)
+//
+//     const promise7 = Promise.resolve().then(() => {
+//         console.log(5)
+//     })
+// }, 0)
+
+// console.log(6)
+
+// =============================================================================
+// console.log(1)
+
+// setTimeout(() => console.log(2))
+
+// Promise.resolve().then(() => console.log(3))
+
+// Promise.resolve().then(() => setTimeout(() => console.log(4)))
+
+// Promise.resolve().then(() => console.log(5))
+
+// setTimeout(() => console.log(6))
+
+// console.log(7)
+
+// =============================================================================
+// console.log(1)
+
+// setTimeout(() => console.log(2))
+
+// Promise.reject(3).catch(console.log)
+
+// new Promise(resolve => setTimeout(resolve)).then(() => console.log(4))
+
+// Promise.resolve(5).then(console.log)
+
+// console.log(6)
+
+// setTimeout(() => console.log(7), 0)
+
+// =============================================================================
+// console.log(1)
+// setTimeout(() => {
+//     console.log(2)
+// }, 0)
+//
+// Promise
+//     .resolve()
+//     .then(() => {
+//         console.log(3)
+//     })
+//     .then(() => {
+//         console.log(4)
+//     })
+//
+// console.log(5)
+
+// =============================================================================
+// console.log(1)
+
+// setTimeout(() => console.log(2), 1000)
+
+// console.log(3)
+
+// new Promise((res) => res(4)).then((data) => console.log(data))
+
+// setTimeout(() => console.log(5), 2000)
+
+// Promise.resolve(6).then((data) => console.log(data))
+
+// new Promise((res) => setTimeout(() => res(7), 3000)).then((data) =>
+//     console.log(data)
+// )
+
+// =============================================================================
+// new Promise((res) => res(1)).then((data) => console.log(data))
+
+// setTimeout(() => console.log(2), 1000)
+
+// Promise.resolve(3).then((data) => console.log(data))
+
+// console.log(4)
+
+// new Promise((res) => setTimeout(() => res(7), 2000)).then((data) =>
+//     console.log(data)
+// )
+
+// for (let i = 0; i < 2; i++) {
+//     console.log(i)
+// }
