@@ -1,41 +1,7 @@
-// замыкание, lexical environment
-// рекурсия, recursive
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
+delay(1000).then(() => {
+  console.log('done')
+})
 
-// let car = "bmw"
-//
-// const startEngine = () => {
-//   // const car = "kia"
-//   console.log(`start ${car}`)
-// }
-//
-// car = "audi"
-//
-// startEngine()
-
-// globalLexicalEnvironment
-// gle {} => null
-
-const counterCreator = () => { // gle {counterCreator: fn} => null
-  // [[Env]] => gle
-  // counterCreatorLE {count: 0}
-  let count = 0
-  console.log(this)
-
-  return () => {
-    // [[Env]] => counterCreatorLE
-    // counterLE {}
-    console.log(++count) // ищет count, не находит в своей области (counterLE), видит в counterCreatorLE, берет оттуда
-  }
-}
-
-const counter1 = counterCreator() // gle {counterCreator: fn, counter: fn} => null
-const counter2 = counterCreator()
-
-counter1() // counter - ссылка на функцию возвращаемую функцией counterCreator
-counter1()
-counter1()
-
-counter2()
-counter2()
-counter2()
+// reject1 catch1 then1
