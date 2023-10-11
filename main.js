@@ -1,57 +1,116 @@
-// const fetchLib = {
-//   getData() {
-//     return new Promise((res, rej) => {
-//       const data = "json"
-//       data ? res("data") : rej("no data")
-//     })
+// this
+
+// 1. Global scope
+// 2. Arrow function scope -> function -> methods
+// 3. Call, apply, bind
+// 4. function constructor
+
+
+// 1. Global scope
+
+// console.log(this)
+
+
+// 2. Arrow function scope -> function -> methods
+
+// const a = () => {
+//   console.log(this)
+// }
+// a()
+
+// const car = {
+//   brand: "bmw",
+//   showBrand: () => {
+//     console.log(this.brand)
 //   }
 // }
 //
-// const getData = fetchLib.getData()
-// getData.then(data => {
-//   console.log(data)
-// }).catch(err => {
-//   console.log(err)
-// })
+// car.showBrand()
 
-// const getData = async () => {
-//   try {
-//     const googleData = await fetch("https://www.google.com/")
-//     const bingData = await fetch("https://www.bing.com/")
-//     const yahooData = await fetch("https://www.yahoo.com/")
-//     return [googleData.url, bingData.url, yahooData.url]
-//   } catch (err) {
-//     console.log(err)
+// "use strict"
+// function foo() {
+//   console.log(this)
+// }
+//
+// foo()
+
+
+// const foo = () => {
+//   console.log(this.brand)
+// }
+
+// let car = {
+//   brand: "bmw",
+//   showBrand() {
+//     console.log(this.brand)
 //   }
 // }
 //
-// getData().then(data => {
-//   console.log(data)
-// })
+// // car.showBrand()
+// const newCar = car
+// car = null
+// newCar.showBrand()
+
+// const car1 = {
+//   brand: "bmw"
+// }
+//
+// const car2 = {
+//   brand: "mercedes"
+// }
+//
+// function showBrand() {
+//   console.log(this.brand)
+// }
+//
+// car1.sb = showBrand
+// car2.sb = showBrand
+//
+// car1.sb()
+// car2.sb()
 
 
-// all | race | any | allSettled
+// 3. Call, apply, bind
 
-const pr1 = fetch("https://www.google.com/")
-const pr2 = fetch("https://www.bing.com/")
-const pr3 = fetch("https://www.yahoo.com/")
+// const scooter = {
+//   color: "yamaha",
+//   showBrand() {
+//     console.log(this.color)
+//   }
+// }
+//
+// const car1 = {
+//   color: "red",
+//   showColor() {
+//     console.log(this.color)
+//   }
+// }
+//
+// const car2 = {
+//   color: "yellow",
+//   showColor() {
+//     console.log(this.color)
+//   }
+// }
 
-// Ждет все
-// Promise.all([pr1, pr2, pr3]).then(data => {
-//   console.log(data)
-// }).catch(console.log)
+// car2.showColor.call(car1, 10, 20)
+// car2.showColor.apply(car1, [10, 20])
+// car2.showColor.bind(car1, 10, 20)()
 
-// Ждет первый
-// Promise.race([pr1, pr2, pr3]).then(data => {
-//   console.log(data.url)
-// }).catch(console.log)
+// car2.showColor.bind(scooter).call(car1)
 
-// Ждет любой резолв, если все реджект то кэтч
-// Promise.any([pr1, pr2, pr3]).then(data => {
-//   console.log(data.url)
-// }).catch(console.log)
 
-// Возвращает все со статусом, без кэтча
-Promise.allSettled([pr1, pr2, pr3]).then(data => {
-  console.log(data)
-})
+// 4. function constructor
+
+// function Car(brand, color) {
+//   // {}
+//   this.brand = brand // {brand: "bmw"}
+//   this.color = color // {brand: "bmw", color: "red"}
+//   // return {brand: "bmw", color: "red"}
+// }
+//
+// const bmw = new Car("bmw", "red")
+// const audi = new Car("audi", "black")
+//
+// console.log(bmw)
+// console.log(audi)
