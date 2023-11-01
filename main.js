@@ -1,68 +1,59 @@
-// class Car {
-//   constructor(brand, speed) {
-//     this.brand = brand
-//     this.speed = speed
-//   }
-//
-//   startEngine() {
-//     console.log(`${this.brand.toUpperCase()} engine started`)
-//   }
-// }
-//
-// const car1 = new Car("mercedes", 120)
-// const car2 = new Car("bmw", 100)
-//
-// console.log(car1.__proto__ === Car.prototype)
-
-
-// const a = new Array()
-// const a = []
-
-// console.log(a.__proto__ === Array.prototype)
-
-
-// const a = 24
-//
-// console.log(a.__proto__ === Number.prototype)
-
-
-// const obj = {
-//   test() {
+// const store = {
+//   _subscribers: [],
+//   dispatch(action) {
+//     // store changed
+//     this._subscribers.forEach(rerender => rerender(action))
+//   }, subscribe(subscriber) {
+//     this._subscribers.push(subscriber)
 //   }
 // }
 //
-// const func = obj.test
 //
-// const obj1 = new func()
-// console.log(obj1)
+// store.subscribe(subscriber()) // стор изменился
+// Promise.then(subscriber()) // промис зарезолвился
+// setTimeout(subscriber(), 1000) // прошла секунда
+// button.addEventListener("click", subscriber()) // клик по кнопке
+
+// subscriber == observer == listener == watcher == handler
 
 
-// class Car {
-//   constructor(brand) {
-//     this.brand = brand
-//   }
-//
-//   startEngine() {
-//     console.log("start")
-//   }
-//
-//   static compareCars(car1, car2) {
-//     console.log("compare")
+// const button = {
+//   _subscribers: {
+//     "click": [],
+//     "doubleClick": [],
+//     "onFocus": []
+//   },
+//   click() {
+//     this._subscribers["click"].forEach(subscriber => subscriber())
+//   },
+//   doubleClick() {
+//     this._subscribers["doubleClick"].forEach(subscriber => subscriber())
+//   },
+//   onFocus() {
+//     this._subscribers["onFocus"].forEach(subscriber => subscriber())
+//   },
+//   addEventListener(eventName, subscriber) {
+//     this._subscribers[eventName].push(subscriber)
+//   },
+//   removeEventListener(eventName, subscriber) {
+//     this._subscribers[eventName] = this._subscribers[eventName].filter(s => s !== subscriber)
 //   }
 // }
 //
-// const car1 = new Car("bmw")
+// const show = () => console.log("event show")
+// const hide = () => console.log("event hide")
 //
-// class SuperCar extends Car {
-//   constructor(brand) {
-//     super(brand)
-//   }
+// button.addEventListener("click", show)
+// button.addEventListener("click", hide)
 //
-//   fly() {
-//     console.log("fly")
-//   }
-// }
+// button.click()
 //
-// const superCar1 = new SuperCar("superBmw")
+// button.removeEventListener("click", hide)
 //
-// SuperCar.compareCars()
+// button.click()
+
+const arr = [1, 2, 3, 4, 5]
+
+const reversedArr = arr.toReversed()
+
+console.log(arr, reversedArr)
